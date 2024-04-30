@@ -4,9 +4,10 @@ import 'package:push_notification_armenta/config/router/app_router.dart';
 import 'package:push_notification_armenta/config/router/theme/app_theme.dart';
 import 'package:push_notification_armenta/presentation/notifications/notifications_bloc.dart';
 
-void main() {
-  runApp(
-    MultiBlocProvider(
+void main() { 
+  WidgetsFlutterBinding.ensureInitialized();
+  NotificationsBloc.initianlizeFcm();
+  runApp(MultiBlocProvider(
       providers: [
         BlocProvider(
           create: (_) => NotificationsBloc(),
