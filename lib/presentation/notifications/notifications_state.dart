@@ -15,5 +15,5 @@ class NotificationsState extends Equatable {
     notifications: notifications?? this.notifications);
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [status,notifications];
 }

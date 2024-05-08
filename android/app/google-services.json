@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "595767855691",
+    "project_id": "flutter-push-notification-dam",
+    "storage_bucket": "flutter-push-notification-dam.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:595767855691:android:0b901b5d283e0ee6275bce",
+        "android_client_info": {
+          "package_name": "com.example.push_notification_armenta"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBw-Xdx01l1WLYam343qrrpksehzYvgzsA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
