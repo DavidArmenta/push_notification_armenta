@@ -13,17 +13,52 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
 
   NotificationsBloc() : super(const NotificationsState()) {
     on<NotificationStatusChanged>(_notificationsStatusChanged);
+    //verificar el estado de las notificaciones 
+    _checkPermissionsFCM();
+// listener para notificaciones en primer plano (Foreground)
+    _onForegroundMessage();
   }
-
+//firebaseCloudMessage
   static Future<void> initializeFCM() async {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
   }
+  
+  void _handleRemoteMessage(RemoteMessage message) 
+  {
+  print('Got a message whilst in the foreground!');
+  print('Message data: ${message.data}');
+
+  if (message.notification != null) {
+    print('Message also contained a notification: ${message.notification}');
+  }
+}
+
+void _onForegroundMessage(){
+  FirebaseMessaging.onMessage.listen(_handleRemoteMessage);
+
+}
 
   void _notificationsStatusChanged(
       NotificationStatusChanged event, Emitter<NotificationsState> emit) {
     emit(state.copywith(status: event.status));
+      _getFCMToken();
+  }
+
+  void _checkPermissionsFCM() async {
+    final settings = await messaging.getNotificationSettings();
+    add(NotificationStatusChanged(settings.authorizationStatus));
+  
+
+  }
+
+  void _getFCMToken() async {
+    final settings = await messaging.getNotificationSettings();
+    if (settings.authorizationStatus == AuthorizationStatus.authorized)return;
+    final token = await messaging.getToken();
+    print(token);
+
   }
 
   void requestPermission() async {
