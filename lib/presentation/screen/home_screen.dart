@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:push_notification_armenta/presentation/notifications/notifications_bloc.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -15,7 +14,7 @@ class HomeScreen extends StatelessWidget {
           actions: [
             IconButton(onPressed: (){
               context.read<NotificationsBloc>().requestPermission();
-            }, icon: const Icon(Icons.abc))
+            }, icon: const Icon(Icons.settings))
           ],
           ),
           body: Center(
