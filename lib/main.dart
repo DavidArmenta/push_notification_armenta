@@ -1,3 +1,5 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:push_notification_armenta/config/router/app_router.dart';
@@ -8,6 +10,7 @@ import 'package:push_notification_armenta/presentation/provider/head_provider.da
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await NotificationsBloc.initializeFCM();
+  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   runApp(HeadProvider.initProvider(mainAppWidget: const MainApp()));
 }
 
