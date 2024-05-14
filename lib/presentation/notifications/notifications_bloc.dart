@@ -48,15 +48,6 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
       final Notification = mapperRemoteMessageToEntity(message);
       print(Notification.toString());
         
-
-    
-    /*
-    print('Got a message whilst in the foreground!');
-    print('Message data: ${message.data}');
-
-    if (message.notification != null) return;
-    print('Message also contained a notification: ${message.notification}');
-    */
   }
 PushMessage mapperRemoteMessageToEntity(RemoteMessage message){
   return PushMessage(

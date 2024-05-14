@@ -7,6 +7,7 @@ import 'package:push_notification_armenta/config/router/theme/app_theme.dart';
 import 'package:push_notification_armenta/presentation/notifications/notifications_bloc.dart';
 import 'package:push_notification_armenta/presentation/provider/head_provider.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await NotificationsBloc.initializeFCM();
