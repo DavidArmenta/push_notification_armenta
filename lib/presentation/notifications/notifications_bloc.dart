@@ -24,6 +24,7 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
 
   NotificationsBloc() : super(const NotificationsState()) {
     on<NotificationStatusChanged>(_notificationsStatusChanged);
+    on<NotificationReceived>(_notificationsReceived);
     // verificar estado de las notificaciones
     _checkPermissionsFCM();
 
@@ -42,12 +43,19 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
     emit(state.copywith(status: event.status));
     _getFCMToken();
   }
+  
+  void _notificationsReceived(
+      NotificationReceived event, Emitter<NotificationsState> emit) {
+    emit(
+      state.copywith(notifications:[event.message, ...state.notifications]));
+    _getFCMToken();
+  }
 
   void _handleRemoteMessage(RemoteMessage message) {
     if(message.notification!= null) return;
-      final Notification = mapperRemoteMessageToEntity(message);
-      print(Notification.toString());
-        
+      final notification = mapperRemoteMessageToEntity(message);
+      print(notification.toString());
+      add(NotificationReceived(notification));
   }
 PushMessage mapperRemoteMessageToEntity(RemoteMessage message){
   return PushMessage(
@@ -99,5 +107,13 @@ PushMessage mapperRemoteMessageToEntity(RemoteMessage message){
       sound: true,
     );
     add(NotificationStatusChanged(settings.authorizationStatus));
+  }
+  PushMessage? getMessageId(String pushMessageID){
+    final exit = state.notifications
+    .any((element) => element.messageId== pushMessageID);
+    if(!exit) return null;
+    return state.notifications
+    .firstWhere((element) => element.messageId== pushMessageID);
+
   }
 }
